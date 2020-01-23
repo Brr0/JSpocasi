@@ -18,7 +18,11 @@ window.addEventListener('load', () => {
                 })
                 .then(data => {
                     console.log(data);
-                    const { temperature, summary, icon } = data.currently;
+                    const {
+                        temperature,
+                        summary,
+                        icon
+                    } = data.currently;
                     temperatureDegree.textContent = temperature;
                     temperatureDescription.textContent = summary;
                     locationTimezone.textContent = data.timezone;
@@ -26,14 +30,14 @@ window.addEventListener('load', () => {
                     const celsius = (temperature - 32) * (5 / 9);
                     setIcons(icon, document.querySelector('.icon'));
                     temperatureSpan.textContent = "C";
-                    temperatureDegree.textContent = (0.01 * (Math.round(celsius * 100)));
+                    temperatureDegree.textContent = ((Math.round(celsius * 100))/100);
                     temperatureSection.addEventListener('click', () => {
                         if (temperatureSpan.textContent === "C") {
                             temperatureSpan.textContent = "F";
                             temperatureDegree.textContent = temperature;
                         } else {
                             temperatureSpan.textContent = "C";
-                            temperatureDegree.textContent = (0.01 * (Math.round(celsius * 100)));
+                            temperatureDegree.textContent = ((Math.round(celsius * 100))/100);
                         }
                     });
                 });
@@ -41,8 +45,11 @@ window.addEventListener('load', () => {
     } else {
         h1.textContent = "Tohle nefunguje z určitých důvodů"
     }
+
     function setIcons(icon, iconID) {
-        const skycons = new Skycons({ color: "white" });
+        const skycons = new Skycons({
+            color: "white"
+        });
         const currentIcon = icon.replace(/-/g, "_").toUpperCase();
         skycons.play();
         return skycons.set(iconID, Skycons[currentIcon]);
